@@ -27,42 +27,143 @@ body::before {
 }
 
 @keyframes floatChips {
-    0% { transform: translateX(-100px) translateY(0px) rotate(0deg); }
-    25% { transform: translateX(50px) translateY(-30px) rotate(90deg); }
-    50% { transform: translateX(200px) translateY(-60px) rotate(180deg); }
-    75% { transform: translateX(350px) translateY(-30px) rotate(270deg); }
-    100% { transform: translateX(500px) translateY(0px) rotate(360deg); }
+    0% {
+        transform: translateY(-100vh) translateX(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) translateX(50px) rotate(360deg);
+    }
 }
 
 @keyframes rotateChips {
-    0%, 100% { background-position: 0% 0%; }
-    25% { background-position: 25% 25%; }
-    50% { background-position: 50% 50%; }
-    75% { background-position: 75% 25%; }
+    0%,
+    100% {
+        background-position: 0% 0%;
+    }
+    25% {
+        background-position: 25% 25%;
+    }
+    50% {
+        background-position: 50% 50%;
+    }
+    75% {
+        background-position: 75% 25%;
+    }
 }
 
-
-/* HERO SECTION */
-
 .hero {
-    background: linear-gradient(135deg, #ffb347, #ffcc33);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+    background-size: 400% 400%;
+    animation: gradientBg 8s ease infinite;
     text-align: center;
     padding: 60px 20px;
     color: #2c2c2c;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 5cm;
+    height: 5cm;
+    object-fit: contain;
+}
+
+.search-box {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    background: white;
+    border-radius: 50px;
+    padding: 8px 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.search-box:hover {
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 5px 10px;
+    font-size: 1rem;
+    width: 200px;
+    color: #333;
+    pointer-events: auto;
+}
+
+.search-box button {
+    border: none;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.search-box button:hover {
+    transform: rotate(90deg);
+    background: linear-gradient(135deg, #764ba2, #f093fb);
+}
+
+@keyframes gradientBg {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 10px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f7b731, #5f27cd);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: bounce 2s ease-in-out infinite, gradientShift 3s ease infinite;
+}
+
+@keyframes bounce {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero p {
     font-size: 1.1rem;
     opacity: 0.9;
 }
-
-
-/* PRODUCTS SECTION */
 
 .products-section {
     padding: 50px 20px;
@@ -124,9 +225,6 @@ body::before {
     animation: none;
 }
 
-
-/* GRID */
-
 .products-grid {
     display: flex;
     overflow-x: auto;
@@ -139,9 +237,6 @@ body::before {
 .products-grid::-webkit-scrollbar {
     display: none;
 }
-
-
-/* PRODUCT CARD */
 
 .product-card {
     background: #fff;
@@ -164,15 +259,17 @@ body::before {
     max-height: 218px;
     object-fit: contain;
     margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+    transform: scale(1.1) rotate(5deg);
 }
 
 .product-card h3 {
     font-size: 1.3rem;
     margin-bottom: 10px;
 }
-
-
-/* PRICE */
 
 .product-card p {
     font-size: 1.1rem;
@@ -188,9 +285,6 @@ body::before {
     font-weight: bold;
     color: #2e7d32;
 }
-
-
-/* COLOR BORDERS */
 
 .blue {
     border-top: 6px solid #2196f3;
@@ -216,11 +310,89 @@ body::before {
     border-top: 6px solid #ff9800;
 }
 
-
-/* MOBILE */
-
 @media (max-width: 600px) {
     .hero h1 {
         font-size: 2.2rem;
     }
+}
+
+.social-section {
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    text-align: center;
+}
+
+.social-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.social-grid {
+    display: flex;
+    overflow: hidden;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    padding: 20px 0;
+    position: relative;
+    height: 340px;
+    justify-content: center;
+}
+
+.social-item {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease;
+    min-width: 45%;
+    flex-shrink: 0;
+    position: absolute;
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.social-item.active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+}
+
+.social-item img,
+.social-item video {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.social-item:hover img,
+.social-item:hover video {
+    transform: scale(1.1) rotate(3deg);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.social-icons a {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.social-icons a:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #764ba2, #f093fb);
 }
