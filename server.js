@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("path");
+const { exec } = require("child_process");
 
 const app = express();
 const PORT = 3000;
@@ -14,5 +15,7 @@ app.get("/", (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log(`✅ Server running at http://localhost:${PORT}`);
+    const url = `http://localhost:${PORT}`;
+    console.log(`✅ Server running at ${url}`);
+    exec(`start chrome ${url}`);
 });
