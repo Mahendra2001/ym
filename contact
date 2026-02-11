@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Khandeshi Crunch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="images/background.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Contact Us</h1>
+            <p>Get in touch with Khandeshi Crunch</p>
+        </div>
+    </header>
+
+    <section class="contact-page">
+        <div class="contact-container">
+            <h2>Contact Information</h2>
+            <div class="contact-item">
+                <h3>📞 Phone Number</h3>
+                <p>9172875211</p>
+            </div>
+            <div class="contact-item">
+                <h3>✉️ Email</h3>
+                <p>Khandesshi.Crunch.com</p>
+            </div>
+            <div class="contact-item">
+                <h3>📍 Address</h3>
+                <p>Mahable Sambhaji, Jalgaon 425002</p>
+            </div>
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+    </section>
+
+</body>
+
+</html>
