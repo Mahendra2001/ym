@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Crunch</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .cart-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .cart-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .cart-items {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr auto auto auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .item-details h4 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .item-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 0.3rem;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+
+        .remove-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
+            transform: scale(1.05);
+        }
+
+        .cart-summary {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #ddd;
+            padding-top: 1rem;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .continue-shopping {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .continue-shopping a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 0.8rem 2rem;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+
+        .continue-shopping a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-cart img {
+            width: 200px;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+        }
+
+        .empty-cart h3 {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .promo-code {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .promo-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .promo-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .promo-input button {
+            padding: 0.8rem 1.5rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            z-index: 10000;
+            animation: popupSlide 0.3s ease-out;
+            min-width: 250px;
+        }
+
+        .popup-message.remove {
+            background: #e74c3c;
+        }
+
+        .popup-content {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .popup-icon {
+            font-size: 1.2rem;
+        }
+
+        .popup-text {
+            font-weight: 500;
+        }
+
+        .popup-hide {
+            animation: popupHide 0.3s ease-in forwards;
+        }
+
+        @keyframes popupSlide {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes popupHide {
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+                gap: 1rem;
+            }
+
+            .item-actions {
+                grid-column: 1 / -1;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Crunch</div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search chips...">
+                <button onclick="searchProducts()">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="active">Cart (<span id="cartCount">0</span>)</a></li>
+                <li><a href="login.html" id="authLink">Login</a></li>
+            </ul>
+            <div class="currency-lang">
+                <select id="currency" onchange="changeCurrency(this.value)">
+                    <option value="INR">INR (₹)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+            <p>Review your items before checkout</p>
+        </div>
+
+        <div id="cartContent">
+            <!-- Cart items will be loaded here -->
+        </div>
+
+        <div class="continue-shopping">
+            <a href="shop.html">← Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="faq.html">FAQ</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Policies</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="return.html">Return & Refund</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: info@crunch.com</p>
+                <p>Phone: +1-800-CRUNCH</p>
+            </div>
+        </div>
+        <p>&copy; 2024 Crunch. All rights reserved.</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let currentCurrency = localStorage.getItem('currency') || 'INR';
+
+        const currencySymbols = {
+            'INR': '₹',
+            'USD': '$',
+            'EUR': '€',
+            'GBP': '£'
+        };
+
+        const exchangeRates = {
+            'INR': 1,
+            'USD': 0.012,
+            'EUR': 0.011,
+            'GBP': 0.0095
+        };
+
+        function formatPrice(price, currency = currentCurrency) {
+            const convertedPrice = (price * exchangeRates[currency]).toFixed(2);
+            return `${currencySymbols[currency]}${convertedPrice}`;
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function showPopup(message, type = 'success') {
+            const popup = document.createElement('div');
+            popup.className = `popup-message ${type}`;
+            popup.innerHTML = `
+                <div class="popup-content">
+                    <span class="popup-icon">${type === 'success' ? '✅' : '🗑️'}</span>
+                    <span class="popup-text">${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(popup);
+            
+            setTimeout(() => {
+                popup.classList.add('popup-hide');
+                setTimeout(() => popup.remove(), 300);
+            }, 2000);
+        }
+
+        function removeFromCart(productId) {
+            console.log('Removing product:', productId);
+            console.log('Cart before:', cart);
+            
+            cart = cart.filter(item => item.id != productId);
+            
+            console.log('Cart after:', cart);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+            updateCartCount();
+            
+            showPopup('Product removed from cart!', 'remove');
+        }
+
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = parseInt(newQuantity);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                updateCartCount();
+            }
+        }
+
+        function renderCart() {
+            const cartContent = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <h3>Your cart is empty</h3>
+                        <p>Add some delicious chips to get started!</p>
+                        <a href="shop.html" class="cta-btn">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            let subtotal = 0;
+            const cartItemsHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                return `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}" class="item-image">
+                        <div class="item-details">
+                            <h4>${item.name}</h4>
+                            <p>${item.description || 'Premium quality chips'}</p>
+                        </div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" 
+                                   onchange="updateQuantity(${item.id}, this.value)" min="1">
+                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                        </div>
+                        <div class="item-price">${formatPrice(itemTotal)}</div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">🗑️ Remove</button>
+                    </div>
+                `;
+            }).join('');
+
+            const shipping = subtotal > 500 ? 0 : 50;
+            const tax = subtotal * 0.18; // 18% GST
+            const total = subtotal + shipping + tax;
+
+            cartContent.innerHTML = `
+                <div class="cart-content">
+                    <div class="cart-items">
+                        <h3>Cart Items (${cart.length})</h3>
+                        ${cartItemsHTML}
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span>${formatPrice(subtotal)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping:</span>
+                            <span>${shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (18%):</span>
+                            <span>${formatPrice(tax)}</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span>${formatPrice(total)}</span>
+                        </div>
+                        
+                        <button class="checkout-btn" onclick="proceedToCheckout()">
+                            Proceed to Checkout
+                        </button>
+                        
+                        <div class="promo-code">
+                            <h4>Have a promo code?</h4>
+                            <div class="promo-input">
+                                <input type="text" id="promoCode" placeholder="Enter code">
+                                <button onclick="applyPromoCode()">Apply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Check if user is logged in
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                alert('Please login to proceed with checkout');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Simulate checkout process
+            const orderData = {
+                orderId: 'ORD' + Date.now(),
+                items: cart,
+                total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                timestamp: new Date().toISOString(),
+                user: user
+            };
+
+            // Save order to localStorage (in real app, send to server)
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+
+            // Clear cart
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            alert(`Order placed successfully! Order ID: ${orderData.orderId}`);
+            window.location.href = 'tracking.html?order=' + orderData.orderId;
+        }
+
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promoCode').value.trim().toUpperCase();
+            const validCodes = {
+                'WELCOME10': 0.10,
+                'SAVE20': 0.20,
+                'FIRST15': 0.15
+            };
+
+            if (validCodes[promoCode]) {
+                const discount = validCodes[promoCode];
+                showPopup(`Promo code applied! You saved ${(discount * 100)}%`, 'success');
+                renderCart();
+            } else {
+                showPopup('Invalid promo code', 'remove');
+            }
+        }
+
+        function changeCurrency(currency) {
+            currentCurrency = currency;
+            localStorage.setItem('currency', currency);
+            renderCart();
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            renderCart();
+            
+            // Set currency selector
+            document.getElementById('currency').value = currentCurrency;
+        });
+
+        // Search functionality
+        function searchProducts() {
+            const query = document.getElementById('searchInput').value;
+            if (query.trim()) {
+                window.location.href = `shop.html?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Enter key search
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,49 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Khandeshi Crunch</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crunch - Premium Chips Worldwide</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header>
+        <nav>
+            <div class="logo">Crunch</div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search chips...">
+                <button onclick="searchProducts()">Search</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html">Cart (<span id="cartCount">0</span>)</a></li>
+                <li><a href="login.html" id="authLink">Login</a></li>
+            </ul>
+            <div class="currency-lang">
+                <select id="currency" onchange="changeCurrency(this.value)">
+                    <option value="INR">INR (₹)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                </select>
+            </div>
+        </nav>
+    </header>
 
-<header class="hero">
-  <h1>Khandeshi Crunch </h1>
-  <p>Homemade Banana Chips • Freshly Packed • No Chemicals</p>
-</header>
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content animate-fade-in">
+            <h1>Welcome to Crunch</h1>
+            <p>India's Natural production no Add chemical pure Banana chips</p>
+            <p class="hero-subtitle">Different Flavors | Premium Quality | Fast Delivery | 100% Natural</p>
+            <a href="register.html" class="cta-btn-secondary">Sign Up & Get 10% Off</a>
+        </div>
+    </section>
 
-<section class="products-section">
-  <h2 class="products-title">Products</h2>
+    <section class="promo-banner">
+        <div class="promo-item animate-slide-up">Free Shipping Over ₹500</div>
+        <div class="promo-item animate-slide-up">100% Quality Guarantee</div>
+        <div class="promo-item animate-slide-up">Easy Returns</div>
+    </section>
 
-  <div class="products-grid">
+    <section class="featured">
+        <h2 class="animate-fade-in">Our Banana Chips Collection</h2>
+        <p class="section-subtitle">Natural, crispy, and delicious banana chips in various flavors</p>
+        <div class="product-grid" id="featuredProducts"></div>
+    </section>
 
-    <div class="product-card blue">
-      <img src="images/chips1.png" alt="Classic Banana Chips">
-      <h3>Classic Chips</h3>
-      <p><span class="old">₹150</span> <span class="new">₹120</span></p>
-    </div>
+    <section class="best-sellers">
+        <h2 class="animate-fade-in">Popular Flavors</h2>
+        <p class="section-subtitle">Most loved banana chip flavors by our customers</p>
+        <div class="product-grid" id="bestSellers"></div>
+    </section>
 
-    <div class="product-card red">
-      <img src="images/chips2.png" alt="Spicy Banana Chips">
-      <h3>Spicy Chips</h3>
-      <p><span class="old">₹150</span> <span class="new">₹120</span></p>
-    </div>
+    <section class="discounts">
+        <h2 class="animate-fade-in">Special Offers</h2>
+        <p class="section-subtitle">Limited time discounts on selected flavors</p>
+        <div class="product-grid" id="discountProducts"></div>
+    </section>
 
-    <div class="product-card yellow">
-      <img src="images/chips3.png" alt="Thin Cut Chips">
-      <h3>Thin Cut</h3>
-      <p><span class="old">₹150</span> <span class="new">₹120</span></p>
-    </div>
+    <section class="reviews">
+        <h2>Customer Reviews</h2>
+        <div class="review-grid">
+            <div class="review-card animate-fade-in">
+                <p>"Best chips ever! Fast delivery worldwide."</p>
+                <span>⭐⭐⭐⭐⭐</span>
+                <p><strong>- John D.</strong></p>
+            </div>
+            <div class="review-card animate-fade-in">
+                <p>"Amazing variety and quality!"</p>
+                <span>⭐⭐⭐⭐⭐</span>
+                <p><strong>- Sarah M.</strong></p>
+            </div>
+            <div class="review-card animate-fade-in">
+                <p>"Love the international selection!"</p>
+                <span>⭐⭐⭐⭐⭐</span>
+                <p><strong>- Mike R.</strong></p>
+            </div>
+        </div>
+    </section>
 
-    <div class="product-card green">
-      <img src="images/chips4.png" alt="Premium Banana Chips">
-      <h3>Premium</h3>
-      <p><span class="old">₹150</span> <span class="new">₹120</span></p>
-    </div>
+    <section class="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <form id="newsletterForm">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
 
-  </div>
-</section>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+                <a href="faq.html">FAQ</a>
+                <a href="blog.html">Blog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Policies</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+                <a href="return.html">Return & Refund</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <p>Email: info@crunch.com</p>
+                <p>Phone: +1-800-CRUNCH</p>
+            </div>
+        </div>
+        <p>&copy; 2024 Crunch. All rights reserved.</p>
+    </footer>
 
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

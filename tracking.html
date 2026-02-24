@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Crunch</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Crunch.</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="tracking-container">
+        <h1>Track Your Order</h1>
+        <input type="text" id="trackingNumber" placeholder="Enter tracking number">
+        <button onclick="trackShipment()">Track</button>
+
+        <div id="trackingResults">
+            <div class="tracking-status">
+                <h3>Order Status</h3>
+                <div class="status-timeline">
+                    <div class="status-step completed">Order Placed</div>
+                    <div class="status-step completed">Processing</div>
+                    <div class="status-step active">Shipped</div>
+                    <div class="status-step">Out for Delivery</div>
+                    <div class="status-step">Delivered</div>
+                </div>
+            </div>
+
+            <div class="courier-info">
+                <h3>Courier Details</h3>
+                <p><strong>Courier:</strong> <span id="courierName">DHL</span></p>
+                <p><strong>Tracking ID:</strong> <span id="trackingId"></span></p>
+                <p><strong>Estimated Delivery:</strong> <span id="estimatedDate"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Crunch. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/tracking.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Crunch</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">🍟 Crunch Admin</div>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div style="max-width: 1200px; margin: 2rem auto; padding: 2rem;">
+        <h1>👥 User Management</h1>
+        
+        <div style="margin: 2rem 0;">
+            <button onclick="loadUsers()" style="padding: 1rem 2rem; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; margin-right: 1rem;">
+                🔄 Refresh Users
+            </button>
+            <button onclick="exportToExcel()" style="padding: 1rem 2rem; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                📊 Download Excel
+            </button>
+        </div>
+
+        <table id="usersTable" style="width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <thead>
+                <tr style="background: #2c3e50; color: white;">
+                    <th style="padding: 1rem; text-align: left;">ID</th>
+                    <th style="padding: 1rem; text-align: left;">Name</th>
+                    <th style="padding: 1rem; text-align: left;">Email</th>
+                    <th style="padding: 1rem; text-align: left;">Phone</th>
+                    <th style="padding: 1rem; text-align: left;">Address</th>
+                    <th style="padding: 1rem; text-align: left;">Created At</th>
+                </tr>
+            </thead>
+            <tbody id="usersBody">
+                <tr>
+                    <td colspan="6" style="padding: 2rem; text-align: center;">Loading...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Crunch. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function loadUsers() {
+            try {
+                const response = await fetch('/api/users');
+                const result = await response.json();
+                
+                const tbody = document.getElementById('usersBody');
+                
+                if (result.success && result.users.length > 0) {
+                    tbody.innerHTML = result.users.map(user => `
+                        <tr style="border-bottom: 1px solid #ddd;">
+                            <td style="padding: 1rem;">${user._id}</td>
+                            <td style="padding: 1rem;">${user.name}</td>
+                            <td style="padding: 1rem;">${user.email}</td>
+                            <td style="padding: 1rem;">${user.phone || 'N/A'}</td>
+                            <td style="padding: 1rem;">${user.address || 'N/A'}</td>
+                            <td style="padding: 1rem;">${new Date(user.createdAt).toLocaleString()}</td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" style="padding: 2rem; text-align: center;">No users found</td></tr>';
+                }
+            } catch (error) {
+                alert('❌ Failed to load users!');
+            }
+        }
+
+        async function exportToExcel() {
+            try {
+                const response = await fetch('/api/export-excel');
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('✅ Excel file created!');
+                    window.open('/download/users-data', '_blank');
+                }
+            } catch (error) {
+                alert('❌ Export failed!');
+            }
+        }
+
+        // Load users on page load
+        loadUsers();
+    </script>
+</body>
+</html>

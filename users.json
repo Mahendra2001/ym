@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "id": "1771842061679",
+      "name": "mahendra",
+      "email": "mahendra25082001@gmail.com",
+      "phone": "888888888",
+      "address": "mahabl ",
+      "password": "Admin@321",
+      "createdAt": "2026-02-23T10:21:01.679Z"
+    },
+    {
+      "id": "1771842980000",
+      "name": "mahendra",
+      "email": "mahendra252001@gmail.com",
+      "phone": "88888888888",
+      "address": "mahabal",
+      "password": "Admin@321",
+      "createdAt": "2026-02-23T10:36:20.000Z"
+    },
+    {
+      "id": "1771842992456",
+      "name": "mahendra",
+      "email": "mahendra2001@gmail.com",
+      "phone": "88888888888",
+      "address": "mahabal",
+      "password": "Admin@321",
+      "createdAt": "2026-02-23T10:36:32.456Z"
+    },
+    {
+      "id": "1771843110006",
+      "name": "mahendra",
+      "email": "mahendra22001@gmail.com",
+      "phone": "88888888888",
+      "address": "mahabal",
+      "password": "Admin@321",
+      "createdAt": "2026-02-23T10:38:30.006Z"
+    },
+    {
+      "id": "1771843208479",
+      "name": "mahendra",
+      "email": "mahendra001@gmail.com",
+      "phone": "88888888888",
+      "address": "mahabal",
+      "password": "Admin@321",
+      "createdAt": "2026-02-23T10:40:08.479Z"
+    }
+  ]
+}
